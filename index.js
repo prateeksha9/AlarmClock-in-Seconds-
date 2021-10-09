@@ -15,7 +15,7 @@ const addAlarm = document.querySelector('.setAlarm')
 
 
 const alarmList = [];  // Stores all the alarms being set 
-let count =1;
+// let count =1;
 
 
 // Plays the alarm audio at correct time
@@ -37,12 +37,10 @@ function updateTime() {
     
 //     check if the alarmList includes the current time , "now"
 //     if yes, ringing() is called
-    if(alarmList.includes(now) && count === 1){
+    if(alarmList.includes(now) ){
         count = count + 1;
         ringing(now);
-    } else if( seconds === 59){
-        count = 1;
-    }
+    } 
 }
 
 
