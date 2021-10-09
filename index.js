@@ -14,19 +14,18 @@ const myList = document.querySelector('#myList');
 const addAlarm = document.querySelector('.setAlarm')
 
 
-// array which will store all the alarms 
-const alarmList = [];
+const alarmList = [];  // Stores all the alarms being set 
 let count =1;
 
 
-// function to play the alarm at correct time
+// Plays the alarm audio at correct time
 function ringing(now){
     audio.play();
     alert(`Hey! it is ${now}`)
 }
 
 
-// function to update time and check the array constantly
+// updates time every second 
 function updateTime() {
     var today = new Date();
     const hour = formatTime(today.getHours());
@@ -35,6 +34,9 @@ function updateTime() {
     const now = `${hour}:${minutes}:${seconds}`;
 
     display.innerText=`${hour}:${minutes}:${seconds}`;
+    
+//     check if the alarmList includes the current time , "now"
+//     if yes, ringing() is called
     if(alarmList.includes(now) && count === 1){
         count = count + 1;
         ringing(now);
@@ -45,6 +47,7 @@ function updateTime() {
 
 
 // set the correct format of time
+// converts "1:2:3" to "01:02:03"
 function formatTime(time) {
     if ( time < 10 && time.length != 2) {
         return '0' + time;
@@ -53,7 +56,7 @@ function formatTime(time) {
 }
 
 
-// function to clear alarm
+// function to clear/stop the currently playing alarm
 function clearAlarm() {
     audio.pause();
     if (alarmTimeout) {
@@ -63,7 +66,7 @@ function clearAlarm() {
 }      
 
 
-// event to Delete a particular alarm
+// removes an alarm from the unordered list and the webpage when "Delete Alarm" is clicked
 myList.addEventListener('click', e=> {
     console.log("removing element")
     if(e.target.classList.contains("deleteAlarm")){
@@ -72,7 +75,7 @@ myList.addEventListener('click', e=> {
 })
 
 
-// remove an alarm from the array
+// removes an alarm from the array when "Delete Alarm" is clicked
 remove = (value) => {
     let newList = alarmList.filter((time) => time != value);
     alarmList.length = 0;                  // Clear contents
@@ -83,9 +86,8 @@ remove = (value) => {
 }
 
 
-// display new alarm on webpage
+// Adds newAlarm to the unordered list as a new list item on webpage
 function showNewAlarm(newAlarm){
-    
     const html =`
     <li class = "time-list">        
         <span class="time">${newAlarm}</span>
@@ -95,7 +97,7 @@ function showNewAlarm(newAlarm){
 };
 
 
-// event to set a new alarm when a form is submitted and added to the array
+// event to set a new alarm whenever the form is submitted 
 addAlarm.addEventListener('submit', e=> {
     e.preventDefault();
     // const newAlarm = addAlarm.alarmTime.value;
@@ -114,6 +116,7 @@ addAlarm.addEventListener('submit', e=> {
     
     const newAlarm = `${new_h}:${new_m}:${new_s}`
 
+//     add newAlarm to alarmList
     if(isNaN(newAlarm)){
         if(!alarmList.includes(newAlarm)){
             alarmList.push(newAlarm);
@@ -130,29 +133,6 @@ addAlarm.addEventListener('submit', e=> {
 })
 
 
-// call the function updateTime after a particular interval
+// calls updateTime() every second
 setInterval(updateTime, 1000);
 
-
-
-
-
-
-
-
-// function setAlarm() {
-//     if(alarmTime) {
-//         const current = new Date();
-//         const timeToAlarm = new Date(alarmTime);
-
-//         if (timeToAlarm > current) {
-//             const timeout = timeToAlarm.getTime() - current.getTime();
-//             alarmTimeout = setTimeout(() => audio.play(), timeout);
-//             alert('Alarm set');
-//         }
-//     }
-// }
-
-// function setAlarmTime(value) {
-//     alarmTime = value;
-// }
