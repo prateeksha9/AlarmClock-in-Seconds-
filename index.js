@@ -21,7 +21,6 @@ let count =1;
 // Plays the audio
 function ringing(now){
     audio.play();
-    alert(`Hey! it's ${now}`);
 }
 
 
