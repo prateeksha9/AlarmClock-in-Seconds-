@@ -38,7 +38,6 @@ function updateTime() {
 //     check if the alarmList includes the current time , "now"
 //     if yes, ringing() is called
     if(alarmList.includes(now) ){
-        count = count + 1;
         ringing(now);
     } 
 }
