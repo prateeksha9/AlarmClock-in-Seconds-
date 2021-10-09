@@ -19,8 +19,9 @@ let count =1;
 
 
 // Plays the audio
-function ringing(){
+function ringing(now){
     audio.play();
+    alert(`Hey! it's ${now}`);
 }
 
 
@@ -36,7 +37,7 @@ function updateTime() {
     display.innerText=`${hour}:${minutes}:${seconds}`;
     if(alarmList.includes(now) && count === 1){
         count = count + 1;
-        ringing();
+        ringing(now);
     } else if( seconds === 59){
         count = 1;
     }
